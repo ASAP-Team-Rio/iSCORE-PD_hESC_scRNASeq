@@ -47,7 +47,7 @@ Raw sequencing data (GEX and MULTI-seq FASTQs), processed Seurat objects, count 
 
 ## Citation
 
-Busquets O, Li H, Syed KM, et al. "iSCORE-PD: an isogenic stem cell collection to research Parkinson Disease." *bioRxiv* (2024). DOI: [10.1101/2024.02.12.579917](https://doi.org/10.1101/2024.02.12.579917)
+Busquets O, Li H, Syed KM, Alvarez Jerez P, Dunnack J, Lo Bu R, Verma Y, Pangilinan GR, Martin A, Straub J, Du Y, Simon VM, Poser S, Bush Z, Diaz J, Sahagun A, Gao J, Hong S, Hernandez DG, Levine KS, Pochet N, Booth EO, Blanchette M, Bateup HS, Rio DC, Hockemeyer D, Blauwendraat C, Soldner F. "iSCORE-PD: an isogenic stem cell collection to research Parkinson Disease." *bioRxiv* (2024). DOI: [10.1101/2024.02.12.579917](https://doi.org/10.1101/2024.02.12.579917)
 
 ## Funding
 
