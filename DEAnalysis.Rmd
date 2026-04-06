@@ -1,0 +1,31 @@
+---
+title: "hESC Irradiation — Differential Expression Analysis"
+output: html_notebook
+---
+
+```{r}
+library(dplyr)
+library(Seurat)
+
+# Load WIBR3 WT filtered Seurat object
+hesc <- readRDS("irradiated_hESC_object.rds")
+```
+
+```{r}
+hesc
+```
+
+```{r}
+DefaultAssay(hesc) <- "RNA"
+Idents(hesc) <- hesc$Gy
+
+DEGenes0vs10 <- FindMarkers(hesc, ident.1 = "CTRL", ident.2 = "10Gy")
+write.csv(DEGenes0vs10,"DE_Statistics/DEStats0vs10.csv")
+DEGenes0vs5 <- FindMarkers(hesc, ident.1 = "CTRL", ident.2 = "5Gy")
+write.csv(DEGenes0vs5,"DE_Statistics/DEStats0vs5.csv")
+DEGenes0vs2 <- FindMarkers(hesc, ident.1 = "CTRL", ident.2 = "2Gy")
+write.csv(DEGenes0vs2,"DE_Statistics/DEStats0vs2.csv")
+DEGenes0vs05 <- FindMarkers(hesc, ident.1 = "CTRL", ident.2 = "0.5Gy")
+write.csv(DEGenes0vs05,"DE_Statistics/DEStats0vs0_50.csv")
+head(DEGenes0vs10,20)
+```

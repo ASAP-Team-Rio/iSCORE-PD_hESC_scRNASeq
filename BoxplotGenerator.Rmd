@@ -1,0 +1,47 @@
+---
+title: "hESC Irradiation — p53 Target Gene Boxplots"
+output: html_notebook
+---
+
+```{r}
+library(dplyr)
+library(Seurat)
+library(cowplot)
+library(ggplot2)
+
+# Load WIBR3 WT filtered Seurat object
+hesc <- readRDS("irradiated_hESC_object.rds")
+```
+
+```{r}
+hesc
+```
+
+```{r}
+# p53 DNA damage response target genes
+features = c("GDF15", "FDXR", "DDB2", "RPS27L", "PHPT1", "BAX", "CDKN1A", "PHLDA3", "GADD45A")
+DefaultAssay(hesc) <- "RNA"
+Idents(hesc) <- hesc$Gy
+mylevels <- c("CTRL","0.5Gy","2Gy","5Gy","10Gy")
+Idents(hesc) <- factor(Idents(hesc), levels= mylevels)
+hesc$SortedGy <- Idents(hesc)
+```
+
+```{r}
+for (gene in features){
+  p <- FetchData(hesc, c(gene,"Gy"))
+  p$Gy <- factor(p$Gy, levels = c("CTRL","0.5Gy","2Gy","5Gy","10Gy"))
+  f1 <- ggplot(p, aes_string(x="Gy", y=gene, fill="Gy")) + geom_boxplot(outlier.shape = NA) +
+    coord_cartesian(ylim = quantile(p[[1]], c(0.01, 0.99))) + ggtitle(gene) +
+    scale_x_discrete(limits=c("CTRL","0.5Gy","2Gy","5Gy","10Gy")) +
+    geom_jitter(shape=16, position=position_jitter(0.2),cex=0.4) +
+    scale_fill_brewer(palette="Spectral",direction=-1) +
+    theme_classic()
+  png(paste("Bar_plots_of_DE_genes/",gene,"_boxplot.png", sep = ""),width = 3000, height = 2000,res=300)
+  print(f1)
+  dev.off()
+
+  ggsave2(paste("Bar_plots_of_DE_genes/",gene,"_boxplot.eps", sep = ""), plot = f1)
+
+}
+```
